@@ -13,7 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+import re
+
 from django.conf.urls import url, include
+from django.conf import settings
 from django.contrib import admin
 from rest_framework_swagger.views import get_swagger_view
 from rest_framework.routers import DefaultRouter
@@ -31,3 +34,12 @@ urlpatterns = [
     url(r'^schema/$', schema_view),
     url(r'^', include(router.urls))
 ]
+
+
+if settings.URL_PREFIX:
+    prefixed_url_pattern = []
+    for pat in urlpatterns:
+        pat.regex = re.compile(r"^%s/%s" % (settings.URL_PREFIX[1:], pat.regex.pattern[1:]))
+        prefixed_url_pattern.append(pat)
+    urlpatterns = prefixed_url_pattern
+

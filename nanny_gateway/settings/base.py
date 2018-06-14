@@ -20,10 +20,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'c$i(7pf!4bq10+f-6#bmu9d_&vpe9i3dt)xyv#g3tj48hia-l+'
+SECRET_KEY = '539+gg!xpw4*=9-coh2uy@qm#jg+tjptafmz)r1_3=uw+n-07n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+APP_NANNY_GATEWAY_URL = 'http://localhost:8000/nanny-gateway'
+
+URL_PREFIX = '/nanny-gateway'
+
+STATIC_URL = '/nanny-gateway/static/'
 
 ALLOWED_HOSTS = [
     '*'
@@ -39,7 +45,7 @@ THIRD_PARTY_APPS = [
 ]
 
 
-INSTALLED_APPS = [
+BUILTIN_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,8 +53,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+]
+
+PROJECT_APPS = [
     'application'
-] + THIRD_PARTY_APPS
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -133,3 +142,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

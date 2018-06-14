@@ -9,17 +9,17 @@ from application.models.nanny_models.application import Application, Application
 class ApplicationViewSet(viewsets.ModelViewSet):
     """
     list:
-    List all current users stored in the database
+    List all current applications stored in the database
     create:
-    Create a new full user in the database
+    Create a new full application in the database
     retrieve:
-    List the user with the corresponding primary key (login_id) from the database
+    List the application with the corresponding primary key (application_id) from the database
     update:
-    Update all fields in a record with the corresponding primary key (login_id) from the database
+    Update all fields in a record with the corresponding primary key (application_id) from the database
     partial_update:
-    Update any amount of fields in  a record with the corresponding primary key (login_id) from the database
+    Update any amount of fields in  a record with the corresponding primary key (application_id) from the database
     destroy:
-    Delete the user with the corresponding primary key (login_id) from the database
+    Delete the application with the corresponding primary key (application_id) from the database
 
     """
     queryset = Application.objects.all()
