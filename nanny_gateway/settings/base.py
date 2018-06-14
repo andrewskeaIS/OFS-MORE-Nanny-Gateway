@@ -16,26 +16,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '539+gg!xpw4*=9-coh2uy@qm#jg+tjptafmz)r1_3=uw+n-07n'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-APP_NANNY_GATEWAY_URL = 'http://localhost:8000/nanny-gateway'
-
-URL_PREFIX = '/nanny-gateway'
-
-STATIC_URL = '/nanny-gateway/static/'
-
-ALLOWED_HOSTS = [
-    '*'
-]
-
-
 # Application definition
 
 
@@ -88,6 +68,26 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'nanny_gateway.wsgi.application'
+
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = '539+gg!xpw4*=9-coh2uy@qm#jg+tjptafmz)r1_3=uw+n-07n'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+APP_NANNY_GATEWAY_URL = 'http://localhost:8000/nanny-gateway'
+
+URL_PREFIX = '/nanny-gateway'
+
+STATIC_URL = '/nanny-gateway/static/'
+
+ALLOWED_HOSTS = [
+    '*'
+]
 
 
 # Database
@@ -144,3 +144,29 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
+TEST_OUTPUT_VERBOSE = True
+TEST_OUTPUT_DESCRIPTIONS = True
+TEST_OUTPUT_DIR = 'xmlrunner'
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    # Parser classes priority-wise for Swagger
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.JSONParser',
+    ],
+}
+
+SWAGGER_SETTINGS = {
+    'DOC_EXPANSION': True,
+    'JSON_EDITOR': True
+}
