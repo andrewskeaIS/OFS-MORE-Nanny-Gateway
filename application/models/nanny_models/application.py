@@ -15,43 +15,9 @@ class ApplicationApiCalls(ApiCalls):
     nanny_prefix = os.environ.get('APP_NANNY_GATEWAY_URL')
 
     # Get a list of records by query.
-    def get_record(self,
-                   application_id=None,
-                   application_type=None,
-                   application_status=None,
-                   cygnum_urn=None,
-                   login_details_status=None,
-                   login_details_arc_flagged=None,
-                   personal_details_status=None,
-                   personal_details_arc_flagged=None,
-                   childcare_address_status=None,
-                   childcare_address_arc_flagged=None,
-                   first_aid_training_status=None,
-                   first_aid_training_arc_flagged=None,
-                   childcare_training_status=None,
-                   childcare_training_arc_flagged=None,
-                   criminal_record_check_status=None,
-                   criminal_record_check_arc_flagged=None,
-                   insurance_cover_status=None,
-                   insurance_cover_arc_flagged=None,
-                   declarations_status=None,
-                   references_status=None,
-                   share_info_declare=None,
-                   display_contact_details_on_web=None,
-                   suitable_declare=None,
-                   information_correct_declare=None,
-                   change_declare=None,
-                   date_created=None,
-                   date_updated=None,
-                   date_accepted=None,
-                   date_submitted=None,
-                   application_reference=None,
-                   ofsted_visit_email_sent=None):
-
-        fields = locals()
-        for field in fields:
-            if field:
-                query_url = self.nanny_prefix + 'api/v1/application/?' + str(field) + '=' + field
+    def get_record(self, **kwargs):
+        for field in kwargs:
+            query_url = self.nanny_prefix + '/api/v1/application/?' + str(field) + '=' + str(kwargs[field])
 
         if query_url:
             response = requests.get(query_url)
@@ -70,12 +36,12 @@ class ApplicationApiCalls(ApiCalls):
         if not isinstance(request_params['application_id'], UUID):
             raise TypeError('The application id must be an instance of uuid')
 
-        response = requests.post(self.nanny_prefix + 'api/v1/application/', data=request_params)
+        response = requests.post(self.nanny_prefix + '/api/v1/application/', data=request_params)
 
         return response
 
     def put(self, application_record, **kwargs):  # Update a record.
-        response = requests.put(self.nanny_prefix + 'api/v1/application/' + application_record['application_id'] + '/',
+        response = requests.put(self.nanny_prefix + '/api/v1/application/' + application_record['application_id'] + '/',
                                 data=application_record)
         return response
 
@@ -86,7 +52,7 @@ class Application(models.Model):
     """
     # Managers
     objects = models.Manager()
-    api = ApiCalls()
+    api = ApplicationApiCalls()
     APP_STATUS = (
         ('ARC_REVIEW', 'ARC_REVIEW'),
         ('CANCELLED', 'CANCELLED'),
@@ -115,22 +81,22 @@ class Application(models.Model):
     application_type = models.CharField(choices=APP_TYPE, max_length=50, blank=True)
     application_status = models.CharField(choices=APP_STATUS, max_length=50, blank=True)
     cygnum_urn = models.CharField(max_length=50, blank=True)
-    login_details_status = models.CharField(choices=TASK_STATUS, max_length=50)
+    login_details_status = models.CharField(choices=TASK_STATUS, max_length=50, default="NOT_STARTED")
     login_details_arc_flagged = models.BooleanField(default=False)
-    personal_details_status = models.CharField(choices=TASK_STATUS, max_length=50)
+    personal_details_status = models.CharField(choices=TASK_STATUS, max_length=50, default="NOT_STARTED")
     personal_details_arc_flagged = models.BooleanField(default=False)
-    childcare_address_status = models.CharField(choices=TASK_STATUS, max_length=50)
+    childcare_address_status = models.CharField(choices=TASK_STATUS, max_length=50, default="NOT_STARTED")
     childcare_address_arc_flagged = models.BooleanField(default=False)
-    first_aid_training_status = models.CharField(choices=TASK_STATUS, max_length=50)
+    first_aid_training_status = models.CharField(choices=TASK_STATUS, max_length=50, default="NOT_STARTED")
     first_aid_training_arc_flagged = models.BooleanField(default=False)
-    childcare_training_status = models.CharField(choices=TASK_STATUS, max_length=50)
+    childcare_training_status = models.CharField(choices=TASK_STATUS, max_length=50, default="NOT_STARTED")
     childcare_training_arc_flagged = models.BooleanField(default=False)
-    criminal_record_check_status = models.CharField(choices=TASK_STATUS, max_length=50)
+    criminal_record_check_status = models.CharField(choices=TASK_STATUS, max_length=50, default="NOT_STARTED")
     criminal_record_check_arc_flagged = models.BooleanField(default=False)
-    insurance_cover_status = models.CharField(choices=TASK_STATUS, max_length=50)
+    insurance_cover_status = models.CharField(choices=TASK_STATUS, max_length=50, default="NOT_STARTED")
     insurance_cover_arc_flagged = models.BooleanField(default=False)
-    declarations_status = models.CharField(choices=TASK_STATUS, max_length=50)
-    references_status = models.CharField(choices=TASK_STATUS, max_length=50)
+    declarations_status = models.CharField(choices=TASK_STATUS, max_length=50, default="NOT_STARTED")
+    references_status = models.CharField(choices=TASK_STATUS, max_length=50, default="NOT_STARTED")
     share_info_declare = models.NullBooleanField(blank=True, null=True, default=None)
     display_contact_details_on_web = models.NullBooleanField(blank=True, null=True, default=None)
     suitable_declare = models.NullBooleanField(blank=True, null=True, default=None)

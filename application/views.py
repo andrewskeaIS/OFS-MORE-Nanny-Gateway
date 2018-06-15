@@ -25,7 +25,9 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ()
+    filter_fields = (
+        'application_id',
+    )
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
