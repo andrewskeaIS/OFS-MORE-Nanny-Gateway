@@ -10,27 +10,13 @@ from django.db import models
 from django.core.validators import RegexValidator
 
 
-class ApplicationApiCalls(ApiCalls):
-    nanny_prefix = os.environ.get('APP_NANNY_GATEWAY_URL')
-    model_name = 'application'
-
-    def create(self, **kwargs):  # Create a record.
-        model_record = Application()
-        return self.build(model_record, **kwargs)
-
-    def put(self, application_record, **kwargs):  # Update a record.
-        response = requests.put(self.nanny_prefix + '/api/v1/application/' + application_record['application_id'] + '/',
-                                data=application_record)
-        return response
-
-
 class Application(models.Model):
     """
         Model for Nanny Application table
     """
     # Managers
     objects = models.Manager()
-    api = ApplicationApiCalls()
+    api = ApiCalls()
     APP_STATUS = (
         ('ARC_REVIEW', 'ARC_REVIEW'),
         ('CANCELLED', 'CANCELLED'),
@@ -100,4 +86,3 @@ class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
         fields = '__all__'
-
