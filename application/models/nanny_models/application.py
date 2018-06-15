@@ -6,39 +6,17 @@ from uuid import uuid4, UUID
 
 from rest_framework import serializers
 from .base import ApiCalls
-from django.forms import model_to_dict
 from django.db import models
 from django.core.validators import RegexValidator
 
 
 class ApplicationApiCalls(ApiCalls):
     nanny_prefix = os.environ.get('APP_NANNY_GATEWAY_URL')
-
-    # Get a list of records by query.
-    def get_record(self, **kwargs):
-        for field in kwargs:
-            query_url = self.nanny_prefix + '/api/v1/application/?' + str(field) + '=' + str(kwargs[field])
-
-        if query_url:
-            response = requests.get(query_url)
-
-            if response.status_code == 200:
-                response.record = json.loads(response.content.decode("utf-8"))[0]
-            else:
-                response.record = None
-
-            return response
+    model_name = 'application'
 
     def create(self, **kwargs):  # Create a record.
         model_record = Application()
-        model_dict = model_to_dict(model_record)
-        request_params = {**model_dict, **kwargs}
-        if not isinstance(request_params['application_id'], UUID):
-            raise TypeError('The application id must be an instance of uuid')
-
-        response = requests.post(self.nanny_prefix + '/api/v1/application/', data=request_params)
-
-        return response
+        return self.build(model_record, **kwargs)
 
     def put(self, application_record, **kwargs):  # Update a record.
         response = requests.put(self.nanny_prefix + '/api/v1/application/' + application_record['application_id'] + '/',
