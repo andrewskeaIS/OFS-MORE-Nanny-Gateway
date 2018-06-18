@@ -29,8 +29,6 @@ router = DefaultRouter()
 router.register(r'api/v1/application', views.ApplicationViewSet)
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^schema/$', schema_view),
     url(r'^', include(router.urls))
 ]

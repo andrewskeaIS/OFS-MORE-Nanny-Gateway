@@ -1,7 +1,3 @@
-import json
-import os
-import requests
-
 from uuid import uuid4, UUID
 
 from rest_framework import serializers
@@ -16,7 +12,7 @@ class Application(models.Model):
     """
     # Managers
     objects = models.Manager()
-    api = ApiCalls()
+    api = ApiCalls("application")
     APP_STATUS = (
         ('ARC_REVIEW', 'ARC_REVIEW'),
         ('CANCELLED', 'CANCELLED'),

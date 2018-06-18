@@ -3,19 +3,19 @@ import requests
 import json
 import os
 from django.forms import model_to_dict
-from uuid import UUID
 
 
 class ApiCalls(models.Manager):
     nanny_prefix = os.environ.get('APP_NANNY_GATEWAY_URL')
+    model_name = ""
 
-    def __init__(self):
-        super(ApiCalls, self).__init__
-        self.model_type = self.model
+    def __init__(self, model_name):
+        super(ApiCalls, self).__init__()
+        self.model_name = model_name
 
     def get_record(self, **kwargs):
         for field in kwargs:
-            query_url = self.nanny_prefix + '/api/v1/' + self.model_type.__name__ + \
+            query_url = self.nanny_prefix + '/api/v1/' + self.model_name + \
                         '/?' + str(field) + '=' + str(kwargs[field])
 
         if query_url:
@@ -29,14 +29,15 @@ class ApiCalls(models.Manager):
             return response
 
     def create(self, **kwargs):
-        model_record = self.model_type()
+        model_type = kwargs.pop("model_type")
+        model_record = model_type()
         model_dict = model_to_dict(model_record)
         request_params = {**model_dict, **kwargs}
 
-        return requests.post(self.nanny_prefix + '/api/v1/' + self.model_type.__name__ + '/', data=request_params)
+        return requests.post(self.nanny_prefix + '/api/v1/' + self.model_name + '/', data=request_params)
 
     def put(self, record, **kwargs):  # Update a record.
-        response = requests.put(self.nanny_prefix + '/api/v1/' + self.model_type.__name__ + '/'
+        response = requests.put(self.nanny_prefix + '/api/v1/' + self.model_name + '/'
                                 + record['application_id'] + '/',
                                 data=record)
         return response
