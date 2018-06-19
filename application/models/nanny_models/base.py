@@ -38,6 +38,6 @@ class ApiCalls(models.Manager):
 
     def put(self, record, **kwargs):  # Update a record.
         response = requests.put(self.nanny_prefix + '/api/v1/' + self.model_name + '/'
-                                + record['application_id'] + '/',
+                                + record['childcare_address_id'] + '/',
                                 data=record)
         return response

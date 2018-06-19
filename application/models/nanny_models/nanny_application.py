@@ -1,4 +1,4 @@
-from uuid import uuid4, UUID
+from uuid import uuid4
 
 from rest_framework import serializers
 from .base import ApiCalls
@@ -6,7 +6,7 @@ from django.db import models
 from django.core.validators import RegexValidator
 
 
-class Application(models.Model):
+class NannyApplication(models.Model):
     """
         Model for Nanny Application table
     """
@@ -80,5 +80,5 @@ class Application(models.Model):
 
 class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Application
+        model = NannyApplication
         fields = '__all__'
