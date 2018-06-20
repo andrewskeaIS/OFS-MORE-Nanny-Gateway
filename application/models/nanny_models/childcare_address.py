@@ -12,17 +12,16 @@ class ChildcareAddress(models.Model):
     """
     # Managers
     objects = models.Manager()
-    api = ApiCalls("childcare-address")
+    api = ApiCalls("childcare-address", "childcare_address_id")
 
     application_id = models.ForeignKey(NannyApplication, on_delete=models.CASCADE, db_column='application_id')
     childcare_address_id = models.UUIDField(primary_key=True, default=uuid4)
-    street_line1 = models.CharField(max_length=100)
-    street_line2 = models.CharField(max_length=100)
-    town = models.CharField(max_length=100)
-    county = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
-    postcode = models.CharField(max_length=100)
-    address_to_be_provided = models.NullBooleanField(blank=True, null=True, default=None)
+    street_line1 = models.CharField(max_length=100, blank=True, null=True)
+    street_line2 = models.CharField(max_length=100, blank=True, null=True)
+    town = models.CharField(max_length=100, blank=True, null=True)
+    county = models.CharField(max_length=100, blank=True, null=True)
+    country = models.CharField(max_length=100, blank=True, null=True)
+    postcode = models.CharField(max_length=100, blank=True, null=True)
 
     @classmethod
     def get_id(cls, childcare_address_id):
