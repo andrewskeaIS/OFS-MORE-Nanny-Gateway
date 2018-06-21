@@ -3,8 +3,9 @@ from django_filters import rest_framework as filters
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 
-from application.models.nanny_models.nanny_application import NannyApplication, ApplicationSerializer
+from application.models.nanny_models.nanny_application import NannyApplication, NannyApplicationSerializer
 from application.models.nanny_models.childcare_address import ChildcareAddress, ChildcareAddressSerializer
+from application.models.nanny_models.childcare_training import ChildcareTraining, ChildcareTrainingSerializer
 
 
 class BaseViewSet(viewsets.ModelViewSet):
@@ -24,7 +25,7 @@ class BaseViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class ApplicationViewSet(BaseViewSet):
+class NannyApplicationViewSet(BaseViewSet):
     """
     list:
     List all current applications stored in the database
@@ -38,10 +39,9 @@ class ApplicationViewSet(BaseViewSet):
     Update any amount of fields in  a record with the corresponding primary key (application_id) from the database
     destroy:
     Delete the application with the corresponding primary key (application_id) from the database
-
     """
     queryset = NannyApplication.objects.all()
-    serializer_class = ApplicationSerializer
+    serializer_class = NannyApplicationSerializer
     filter_fields = (
         'application_id',
     )
@@ -61,10 +61,18 @@ class ChildcareAddressViewSet(BaseViewSet):
     Update any amount of fields in  a record with the corresponding primary key (childcare_address_id) from the database
     destroy:
     Delete the childcare address with the corresponding primary key (childcare_address_id) from the database
-
     """
     queryset = ChildcareAddress.objects.all()
     serializer_class = ChildcareAddressSerializer
     filter_fields = (
         'childcare_address_id',
     )
+
+
+class ChildcareTrainingViewSet(BaseViewSet):
+    queryset = ChildcareTraining.objects.all()
+    serializer_class = ChildcareTrainingSerializer
+    filter_fields = (
+        'application_id',
+    )
+
