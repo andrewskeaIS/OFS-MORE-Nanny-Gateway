@@ -7,6 +7,10 @@ from application.models.nanny_models.nanny_application import NannyApplication, 
 from application.models import FirstAidTraining, FirstAidTrainingSerializer
 from application.models.nanny_models.childcare_training import ChildcareTraining, ChildcareTrainingSerializer
 from application.models.nanny_models.childcare_address import ChildcareAddress, ChildcareAddressSerializer
+from application.models.nanny_models.applicant_personal_details import ApplicantPersonalDetails, \
+    ApplicantPersonalDetailsSerializer
+from application.models.nanny_models.applicant_home_address import ApplicantHomeAddress, ApplicantHomeAddressSerializer
+from application.models.nanny_models.childcare_training import ChildcareTraining, ChildcareTrainingSerializer
 
 
 class BaseViewSet(viewsets.ModelViewSet):
@@ -71,4 +75,64 @@ class FirstAidViewSet(BaseViewSet):
     filter_fields = (
         'first_aid_id',
         'application_id',
+    )
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        if not queryset.exists():
+            raise NotFound(detail="Error 404, resource not found", code=404)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+
+class ApplicantPersonalDetailsViewSet(BaseViewSet):
+    """
+    list:
+    List all current applicant personal details stored in the database
+    create:
+    Create a new applicant personal details record in the database
+    retrieve:
+    List the application with the corresponding primary key (personal_detail_id) from the database
+    update:
+    Update all fields in a record with the corresponding primary key (personal_detail_id) from the database
+    partial_update:
+    Update any amount of fields in  a record with the corresponding primary key (personal_detail_id) from the database
+    destroy:
+    Delete the applicant personal details record with the corresponding primary key (personal_detail_id) from the database
+
+    """
+    queryset = ApplicantPersonalDetails.objects.all()
+    serializer_class = ApplicantPersonalDetailsSerializer
+    filter_fields = (
+        'personal_detail_id',
+    )
+
+
+class ApplicantHomeAddressViewSet(BaseViewSet):
+    """
+    list:
+    List all current applicant home addresses stored in the database
+    create:
+    Create a new applicant home address record in the database
+    retrieve:
+    List the application with the corresponding primary key (home_address_id) from the database
+    update:
+    Update all fields in a record with the corresponding primary key (home_address_id) from the database
+    partial_update:
+    Update any amount of fields in  a record with the corresponding primary key (home_address_id) from the database
+    destroy:
+    Delete the applicant home address record with the corresponding primary key (home_address_id) from the database
+
+    """
+    queryset = ApplicantHomeAddress.objects.all()
+    serializer_class = ApplicantHomeAddressSerializer
+    filter_fields = (
+        'home_address_id',
     )
