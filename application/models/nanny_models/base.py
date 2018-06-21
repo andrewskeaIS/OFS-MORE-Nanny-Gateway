@@ -62,7 +62,9 @@ class ApiCalls(models.Manager):
         return response
 
     def put(self, record, **kwargs):  # Update a record.
+        pk_name = self.model._meta.pk.name
         response = requests.put(self.nanny_prefix + '/api/v1/' + self.model_name + '/'
                                 + record[self.pk] + '/',
+                                + record[pk_name] + '/',
                                 data=record)
         return response
