@@ -1,4 +1,4 @@
-from uuid import uuid4, UUID
+from uuid import uuid4
 
 from rest_framework import serializers
 from .base import ApiCalls
@@ -12,7 +12,7 @@ class NannyApplication(models.Model):
     """
     # Managers
     objects = models.Manager()
-    api = ApiCalls("application")
+    api = ApiCalls("application", "application_id")
     APP_STATUS = (
         ('ARC_REVIEW', 'ARC_REVIEW'),
         ('CANCELLED', 'CANCELLED'),
@@ -69,6 +69,7 @@ class NannyApplication(models.Model):
     application_reference = models.CharField(blank=True, null=True, max_length=9,
                                              validators=[RegexValidator(r'(\w{2})([0-9]{7})')])
     ofsted_visit_email_sent = models.DateTimeField(blank=True, null=True)
+    address_to_be_provided = models.NullBooleanField(blank=True, null=True, default=None)
 
     @classmethod
     def get_id(cls, app_id):

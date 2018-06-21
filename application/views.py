@@ -5,6 +5,7 @@ from rest_framework.response import Response
 
 from application.models.nanny_models.application import NannyApplication, NannyApplicationSerializer
 from application.models.nanny_models.childcare_training import ChildcareTraining, ChildcareTrainingSerializer
+from application.models.nanny_models.childcare_address import ChildcareAddress, ChildcareAddressSerializer
 
 
 class BaseViewSet(viewsets.ModelViewSet):
@@ -43,6 +44,29 @@ class NannyApplicationViewSet(BaseViewSet):
     serializer_class = NannyApplicationSerializer
     filter_fields = (
         'application_id',
+    )
+
+
+class ChildcareAddressViewSet(BaseViewSet):
+    """
+    list:
+    List all current childcare addresses stored in the database
+    create:
+    Create a new full childcare address in the database
+    retrieve:
+    List the application with the corresponding primary key (childcare_address_id) from the database
+    update:
+    Update all fields in a record with the corresponding primary key (childcare_address_id) from the database
+    partial_update:
+    Update any amount of fields in  a record with the corresponding primary key (childcare_address_id) from the database
+    destroy:
+    Delete the childcare address with the corresponding primary key (childcare_address_id) from the database
+
+    """
+    queryset = ChildcareAddress.objects.all()
+    serializer_class = ChildcareAddressSerializer
+    filter_fields = (
+        'childcare_address_id',
     )
 
 
