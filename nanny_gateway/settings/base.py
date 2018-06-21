@@ -36,7 +36,7 @@ BUILTIN_APPS = [
 ]
 
 PROJECT_APPS = [
-    'application'
+    'application.apps.ApplicationConfig'
 ]
 
 MIDDLEWARE = [
@@ -68,6 +68,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'nanny_gateway.wsgi.application'
+
+MIGRATION_MODULES = {
+    'application': 'application.models.nanny_models.migrations'
+}
 
 
 # Quick-start development settings - unsuitable for production
