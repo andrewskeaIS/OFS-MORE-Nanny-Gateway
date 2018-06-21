@@ -37,7 +37,8 @@ class ApiCalls(models.Manager):
         return requests.post(self.nanny_prefix + '/api/v1/' + self.model_name + '/', data=request_params)
 
     def put(self, record, **kwargs):  # Update a record.
+        pk_name = self.model._meta.pk.name
         response = requests.put(self.nanny_prefix + '/api/v1/' + self.model_name + '/'
-                                + record['application_id'] + '/',
+                                + record[pk_name] + '/',
                                 data=record)
         return response
