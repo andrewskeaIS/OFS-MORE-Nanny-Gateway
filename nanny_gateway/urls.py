@@ -26,7 +26,9 @@ schema_view = get_swagger_view(title='OFS-MORE Nanny Gateway')
 
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
-router.register(r'api/v1/application', views.ApplicationViewSet)
+router.register(r'api/v1/application', views.NannyApplicationViewSet)
+router.register(r'api/v1/childcare-training', views.ChildcareTrainingViewSet)
+
 
 urlpatterns = [
     url(r'^schema/$', schema_view),
