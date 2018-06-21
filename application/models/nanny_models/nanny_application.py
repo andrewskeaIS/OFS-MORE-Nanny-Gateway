@@ -79,7 +79,7 @@ class NannyApplication(models.Model):
         db_table = 'NANNY_APPLICATION'
 
 
-class ApplicationSerializer(serializers.ModelSerializer):
+class NannyApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = NannyApplication
         fields = '__all__'
