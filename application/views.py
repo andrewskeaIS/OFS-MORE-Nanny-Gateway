@@ -78,19 +78,6 @@ class ChildcareTrainingViewSet(BaseViewSet):
         'application_id',
     )
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
-        if not queryset.exists():
-            raise NotFound(detail="Error 404, resource not found", code=404)
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
-
 
 class FirstAidViewSet(viewsets.ModelViewSet):
     """
@@ -115,17 +102,3 @@ class FirstAidViewSet(viewsets.ModelViewSet):
         'first_aid_id',
         'application_id',
     )
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
-        if not queryset.exists():
-            raise NotFound(detail="Error 404, resource not found", code=404)
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
-
