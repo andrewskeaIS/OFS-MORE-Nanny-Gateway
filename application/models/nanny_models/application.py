@@ -6,7 +6,7 @@ from django.db import models
 from django.core.validators import RegexValidator
 
 
-class Application(models.Model):
+class NannyApplication(models.Model):
     """
         Model for Nanny Application table
     """
@@ -78,7 +78,7 @@ class Application(models.Model):
         db_table = 'NANNY_APPLICATION'
 
 
-class ApplicationSerializer(serializers.ModelSerializer):
+class NannyApplicationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Application
+        model = NannyApplication
         fields = '__all__'
