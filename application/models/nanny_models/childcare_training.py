@@ -4,7 +4,7 @@ from rest_framework import serializers
 from .base import ApiCalls
 from django.db import models
 
-from .application import NannyApplication
+from .nanny_application import NannyApplication
 
 
 class ChildcareTraining(models.Model):
@@ -12,7 +12,7 @@ class ChildcareTraining(models.Model):
     Model for Childcare Training table.
     """
     objects = models.Manager()
-    api = ApiCalls("childcare-training")
+    api = ApiCalls("childcare-training", 'childcare_training_id')
 
     childcare_training_id = models.UUIDField(primary_key=True, default=uuid4)
     application_id = models.ForeignKey(NannyApplication, on_delete=models.CASCADE, db_column='application_id')

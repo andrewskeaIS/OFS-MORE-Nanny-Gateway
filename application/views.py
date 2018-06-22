@@ -3,7 +3,7 @@ from django_filters import rest_framework as filters
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 
-from application.models.nanny_models.application import NannyApplication, NannyApplicationSerializer
+from application.models.nanny_models.nanny_application import NannyApplication, NannyApplicationSerializer
 from application.models.nanny_models.childcare_training import ChildcareTraining, ChildcareTrainingSerializer
 from application.models.nanny_models.childcare_address import ChildcareAddress, ChildcareAddressSerializer
 
