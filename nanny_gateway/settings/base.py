@@ -84,6 +84,9 @@ APP_NANNY_GATEWAY_URL = 'http://localhost:8000/nanny-gateway'
 URL_PREFIX = '/nanny-gateway'
 
 STATIC_URL = '/nanny-gateway/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 
 ALLOWED_HOSTS = [
