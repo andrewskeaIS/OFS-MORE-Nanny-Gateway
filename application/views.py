@@ -93,21 +93,6 @@ class FirstAidViewSet(BaseViewSet):
 
 
 class ApplicantPersonalDetailsViewSet(BaseViewSet):
-    """
-    list:
-    List all current applicant personal details stored in the database
-    create:
-    Create a new applicant personal details record in the database
-    retrieve:
-    List the application with the corresponding primary key (personal_detail_id) from the database
-    update:
-    Update all fields in a record with the corresponding primary key (personal_detail_id) from the database
-    partial_update:
-    Update any amount of fields in  a record with the corresponding primary key (personal_detail_id) from the database
-    destroy:
-    Delete the applicant personal details record with the corresponding primary key (personal_detail_id) from the database
-
-    """
     queryset = ApplicantPersonalDetails.objects.all()
     serializer_class = ApplicantPersonalDetailsSerializer
     filter_fields = (
@@ -117,21 +102,7 @@ class ApplicantPersonalDetailsViewSet(BaseViewSet):
 
 
 class ApplicantHomeAddressViewSet(BaseViewSet):
-    """
-    list:
-    List all current applicant home addresses stored in the database
-    create:
-    Create a new applicant home address record in the database
-    retrieve:
-    List the application with the corresponding primary key (home_address_id) from the database
-    update:
-    Update all fields in a record with the corresponding primary key (home_address_id) from the database
-    partial_update:
-    Update any amount of fields in  a record with the corresponding primary key (home_address_id) from the database
-    destroy:
-    Delete the applicant home address record with the corresponding primary key (home_address_id) from the database
 
-    """
     queryset = ApplicantHomeAddress.objects.all()
     serializer_class = ApplicantHomeAddressSerializer
     filter_fields = (
