@@ -7,7 +7,6 @@ from application.models.nanny_models.nanny_application import NannyApplication, 
 from application.models import FirstAidTraining, FirstAidTrainingSerializer
 from application.models.nanny_models.childcare_training import ChildcareTraining, ChildcareTrainingSerializer
 from application.models.nanny_models.childcare_address import ChildcareAddress, ChildcareAddressSerializer
-from application.models.nanny_models.childcare_training import ChildcareTraining, ChildcareTrainingSerializer
 
 
 class BaseViewSet(viewsets.ModelViewSet):
