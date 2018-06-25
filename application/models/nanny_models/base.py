@@ -52,19 +52,11 @@ class ApiCalls(models.Manager):
         model_dict = model_to_dict(model_record)
         request_params = {**model_dict, **kwargs}
 
-        response = requests.post(self.nanny_prefix + '/api/v1/' + self.model_name + '/', data=request_params)
-
-        if response.status_code == 201:
-            response.record = json.loads(response.content.decode("utf-8"))
-        else:
-            response.record = None
-
-        return response
+        return requests.post(self.nanny_prefix + '/api/v1/' + self.model_name + '/', data=request_params)
 
     def put(self, record, **kwargs):  # Update a record.
         pk_name = self.model._meta.pk.name
         response = requests.put(self.nanny_prefix + '/api/v1/' + self.model_name + '/'
-                                + record[self.pk] + '/',
                                 + record[pk_name] + '/',
                                 data=record)
         return response
