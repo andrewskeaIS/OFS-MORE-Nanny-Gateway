@@ -10,6 +10,20 @@ from application.models.nanny_models.childcare_address import ChildcareAddress, 
 
 
 class BaseViewSet(viewsets.ModelViewSet):
+    """
+    list:
+    List all current applications stored in the database
+    create:
+    Create a new full application in the database
+    retrieve:
+    List the application with the corresponding primary key (application_id) from the database
+    update:
+    Update all fields in a record with the corresponding primary key (application_id) from the database
+    partial_update:
+    Update any amount of fields in  a record with the corresponding primary key (application_id) from the database
+    destroy:
+    Delete the application with the corresponding primary key (application_id) from the database
+    """
     filter_backends = (filters.DjangoFilterBackend,)
 
     def list(self, request, *args, **kwargs):
@@ -27,20 +41,6 @@ class BaseViewSet(viewsets.ModelViewSet):
 
 
 class NannyApplicationViewSet(BaseViewSet):
-    """
-    list:
-    List all current applications stored in the database
-    create:
-    Create a new full application in the database
-    retrieve:
-    List the application with the corresponding primary key (application_id) from the database
-    update:
-    Update all fields in a record with the corresponding primary key (application_id) from the database
-    partial_update:
-    Update any amount of fields in  a record with the corresponding primary key (application_id) from the database
-    destroy:
-    Delete the application with the corresponding primary key (application_id) from the database
-    """
     queryset = NannyApplication.objects.all()
     serializer_class = NannyApplicationSerializer
     filter_fields = (
@@ -49,20 +49,6 @@ class NannyApplicationViewSet(BaseViewSet):
 
 
 class ChildcareAddressViewSet(BaseViewSet):
-    """
-    list:
-    List all current childcare addresses stored in the database
-    create:
-    Create a new full childcare address in the database
-    retrieve:
-    List the application with the corresponding primary key (childcare_address_id) from the database
-    update:
-    Update all fields in a record with the corresponding primary key (childcare_address_id) from the database
-    partial_update:
-    Update any amount of fields in  a record with the corresponding primary key (childcare_address_id) from the database
-    destroy:
-    Delete the childcare address with the corresponding primary key (childcare_address_id) from the database
-    """
     queryset = ChildcareAddress.objects.all()
     serializer_class = ChildcareAddressSerializer
     filter_fields = (
@@ -79,21 +65,6 @@ class ChildcareTrainingViewSet(BaseViewSet):
 
 
 class FirstAidViewSet(viewsets.ModelViewSet):
-    """
-    list:
-    List all current first aid records stored in the database
-    create:
-    Create a new full first aid record in the database
-    retrieve:
-    List the first aid records with the corresponding primary key (first_aid_id) from the database
-    update:
-    Update all fields in a record with the corresponding primary key (first_aid_id) from the database
-    partial_update:
-    Update any amount of fields in  a record with the corresponding primary key (first_aid_id) from the database
-    destroy:
-    Delete the application with the corresponding primary key (first_aid_id) from the database
-
-    """
     queryset = FirstAidTraining.objects.all()
     serializer_class = FirstAidTrainingSerializer
     filter_backends = (filters.DjangoFilterBackend,)
