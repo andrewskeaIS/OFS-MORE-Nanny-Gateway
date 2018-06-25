@@ -4,6 +4,8 @@ from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 
 from application.models.nanny_models.nanny_application import NannyApplication, NannyApplicationSerializer
+from application.models import FirstAidTraining, FirstAidTrainingSerializer
+from application.models.nanny_models.childcare_training import ChildcareTraining, ChildcareTrainingSerializer
 from application.models.nanny_models.childcare_address import ChildcareAddress, ChildcareAddressSerializer
 from application.models.nanny_models.childcare_training import ChildcareTraining, ChildcareTrainingSerializer
 
@@ -75,4 +77,55 @@ class ChildcareTrainingViewSet(BaseViewSet):
     filter_fields = (
         'application_id',
     )
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        if not queryset.exists():
+            raise NotFound(detail="Error 404, resource not found", code=404)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class FirstAidViewSet(viewsets.ModelViewSet):
+    """
+    list:
+    List all current first aid records stored in the database
+    create:
+    Create a new full first aid record in the database
+    retrieve:
+    List the first aid records with the corresponding primary key (first_aid_id) from the database
+    update:
+    Update all fields in a record with the corresponding primary key (first_aid_id) from the database
+    partial_update:
+    Update any amount of fields in  a record with the corresponding primary key (first_aid_id) from the database
+    destroy:
+    Delete the application with the corresponding primary key (first_aid_id) from the database
+
+    """
+    queryset = FirstAidTraining.objects.all()
+    serializer_class = FirstAidTrainingSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = (
+        'first_aid_id',
+        'application_id',
+    )
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        if not queryset.exists():
+            raise NotFound(detail="Error 404, resource not found", code=404)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 

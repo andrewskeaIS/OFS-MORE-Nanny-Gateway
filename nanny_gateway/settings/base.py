@@ -85,9 +85,6 @@ URL_PREFIX = '/nanny-gateway'
 
 STATIC_URL = '/nanny-gateway/static/'
 
-MIGRATION_MODULES = {
-    'application': 'application.models.nanny_models.migrations'
-}
 
 ALLOWED_HOSTS = [
     '*'
