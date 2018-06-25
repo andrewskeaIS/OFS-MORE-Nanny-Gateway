@@ -112,6 +112,7 @@ class ApplicantPersonalDetailsViewSet(BaseViewSet):
     serializer_class = ApplicantPersonalDetailsSerializer
     filter_fields = (
         'personal_detail_id',
+        'application_id'
     )
 
 
