@@ -19,6 +19,8 @@ class ApplicantPersonalDetails(models.Model):
     birth_day = models.IntegerField(blank=True, null=True)
     birth_month = models.IntegerField(blank=True, null=True)
     birth_year = models.IntegerField(blank=True, null=True)
+    lived_abroad = models.NullBooleanField(blank=True, null=True)
+    post_certificate_declaration = models.NullBooleanField(blank=True, null=True)
 
     @classmethod
     def get_id(cls, personal_detail_id):
