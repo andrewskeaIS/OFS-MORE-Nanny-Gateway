@@ -8,10 +8,10 @@ from .nanny_application import NannyApplication
 
 class DbsCheck(models.Model):
     """
-    Model for FIRST_AID_TRAINING table
+    Model for DBS_CHECK table
     """
     objects = models.Manager()
-    api = ApiCalls("first_aid_training", 'dbs_id')
+    api = ApiCalls("dbs-check", 'dbs_id')
     dbs_id = models.UUIDField(primary_key=True, default=uuid4)
     application_id = models.ForeignKey(
         NannyApplication, on_delete=models.CASCADE, db_column='application_id')
