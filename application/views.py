@@ -57,6 +57,7 @@ class ChildcareAddressViewSet(BaseViewSet):
     serializer_class = ChildcareAddressSerializer
     filter_fields = (
         'childcare_address_id',
+        'application_id'
     )
 
 
@@ -91,7 +92,6 @@ class FirstAidViewSet(BaseViewSet):
         return Response(serializer.data)
 
 
-
 class ApplicantPersonalDetailsViewSet(BaseViewSet):
     queryset = ApplicantPersonalDetails.objects.all()
     serializer_class = ApplicantPersonalDetailsSerializer
@@ -107,4 +107,6 @@ class ApplicantHomeAddressViewSet(BaseViewSet):
     serializer_class = ApplicantHomeAddressSerializer
     filter_fields = (
         'home_address_id',
+        'personal_detail_id',
+        'application_id'
     )
