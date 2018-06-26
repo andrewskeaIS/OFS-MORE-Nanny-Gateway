@@ -64,7 +64,7 @@ class ChildcareTrainingViewSet(BaseViewSet):
     )
 
 
-class FirstAidViewSet(viewsets.ModelViewSet):
+class FirstAidViewSet(BaseViewSet):
     queryset = FirstAidTraining.objects.all()
     serializer_class = FirstAidTrainingSerializer
     filter_backends = (filters.DjangoFilterBackend,)
